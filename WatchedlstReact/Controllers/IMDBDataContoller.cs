@@ -11,11 +11,18 @@ using Microsoft.AspNetCore.Mvc;
 /// </summary>
 namespace WatchedlstReact.Controllers
 {
-    public class IMDBDataController : Controller
+    public class IMDBDataCollector
     {
         static string apikey = "2065e398";
-        static async public void GetData(string id)
+        string data;
+        bool recieved = false;
+
+        public bool Recieved { get => recieved; set => recieved = value; }
+        public string Data { get => data; set => data = value; }
+
+        async public void GetData(string id)
         {
+            this.Data = null;
             try
             {
                 string imdbAPIURL = String.Format("http://www.omdbapi.com/?i={0}&apikey={1}", id, apikey);
@@ -24,10 +31,10 @@ namespace WatchedlstReact.Controllers
                 using (HttpResponseMessage res = await client.GetAsync(imdbAPIURL))
                 using (HttpContent content = res.Content)
                 {
-                    string data = await content.ReadAsStringAsync();
-                    if (data != null)
+                    this.Data = await content.ReadAsStringAsync();
+                    if (this.Data != null)
                     {
-                        Console.WriteLine(data);
+                        Console.WriteLine(this.Data);
                     }
                 }
             }
@@ -35,6 +42,7 @@ namespace WatchedlstReact.Controllers
             {
                 Console.WriteLine(err.Message);
             }
+            Recieved = true;
         }
     }
 }
