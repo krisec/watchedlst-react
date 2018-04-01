@@ -7,21 +7,28 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WatchedlstReact.Controllers
 {
-    public class EntityController : Controller
+    [Route("api/[controller]")]
+    public class EntityDataController : Controller
     {
         // GET: Entity
         public ActionResult Index()
         {
-            IMDBDataCollector collector = new IMDBDataCollector();
-            collector.GetData("");
+            return View();
+        }
 
-            while (!collector.Recieved)
+        [HttpGet("[action]/{id}")]
+        public string MovieJSON(string id)
+        {
+            IMDBDataCollector col = new IMDBDataCollector();
+            col.GetData(id);
+
+            while (!col.Recieved)
             {
 
             }
 
-            ViewData["IMDBToken"] = collector.Data;
-            return View();
+            Console.WriteLine(id);
+            return col.Data;
         }
 
         // GET: Entity/Details/5

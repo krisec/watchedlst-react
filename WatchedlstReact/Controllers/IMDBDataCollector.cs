@@ -34,13 +34,13 @@ namespace WatchedlstReact.Controllers
                     this.Data = await content.ReadAsStringAsync();
                     if (this.Data != null)
                     {
-                        Console.WriteLine(this.Data);
+                        //Console.WriteLine(this.Data);
                     }
                 }
             }
             catch (Exception err)
             {
-                Console.WriteLine(err.Message);
+                //Console.Error.WriteLine(err.Message);
             }
             Recieved = true;
         }
