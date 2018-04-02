@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "devDependencies": {
     "@types/history": "4.6.0",
-    "@types/react": "15.0.35",
-    "@types/react-dom": "15.5.1",
+    "@types/material-ui": "^0.21.1",
+    "@types/react": "16.3.1",
+    "@types/react-dom": "16.0.4",
     "@types/react-hot-loader": "3.0.3",
     "@types/react-router": "4.0.12",
     "@types/react-router-dom": "4.0.5",
@@ -21,8 +22,8 @@
     "isomorphic-fetch": "2.2.1",
     "jquery": "3.2.1",
     "json-loader": "0.5.4",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
+    "react": "16.3.0",
+    "react-dom": "16.3.0",
     "react-hot-loader": "3.0.0-beta.7",
     "react-router-dom": "4.1.1",
     "style-loader": "0.18.2",
@@ -30,5 +31,9 @@
     "url-loader": "0.5.9",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2"
+  },
+  "dependencies": {
+    "@types/material-ui": "^0.21.1",
+    "material-ui": "^0.20.0"
   }
 }

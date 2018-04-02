@@ -12,24 +12,24 @@ export class Entity extends React.Component<RouteComponentProps<any>> {
         title: "loading...",
         year: "",
         desc: "loading...",
-        imageSrc:"",
+        imageSrc: "",
         data: String,
         loading: true
     };
 
 
 
-    constructor() {
-        super();
+    constructor(props:any) {
+        super(props);
     }
 
 
 
 
     public componentWillMount() {
-        var id = this.props.match.params.id;        
-        fetch("api/EntityData/MovieJSON/" + id).then(response => response.json()).then(data => {
-            this.setState({ data: data, loading: false, title: data["Title"], year: data["Year"], desc: data["Plot"], imageSrc: data["Poster"]});
+        var id = this.props.match.params.id;
+        fetch("api/EntityData/MovieJSONById/" + id).then(response => response.json()).then(data => {
+            this.setState({ data: data, loading: false, title: data["Title"], year: data["Year"], desc: data["Plot"], imageSrc: data["Poster"] });
         });
     }
 
@@ -41,12 +41,12 @@ export class Entity extends React.Component<RouteComponentProps<any>> {
                 img src={imageSrc} />
                 {title} ({year})
             <button>&#10003;</button>
-            <button>&#10060;</button>
+                <button>&#10060;</button>
             </h1>
 
             <p>{desc}</p>
 
-            
+
         </div>;
     }
 }

@@ -17,10 +17,10 @@ namespace WatchedlstReact.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public string MovieJSON(string id)
+        public string MovieJSONById(string id)
         {
             IMDBDataCollector col = new IMDBDataCollector();
-            col.GetData(id);
+            col.GetDataById(id);
 
             while (!col.Recieved)
             {
@@ -28,6 +28,20 @@ namespace WatchedlstReact.Controllers
             }
 
             Console.WriteLine(id);
+            return col.Data;
+        }
+
+        [HttpGet("[action]/{query}")]
+        public string MovieJSONBySearch(string query)
+        {
+            IMDBDataCollector col = new IMDBDataCollector();
+            col.GetDataBySearch(query);
+
+            while (!col.Recieved)
+            {
+
+            }
+
             return col.Data;
         }
 
