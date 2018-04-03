@@ -6,7 +6,7 @@ interface EntityMatch {
 
 }
 
-export class Entity extends React.Component<RouteComponentProps<any>> {
+export class MovieEntity extends React.Component<RouteComponentProps<any>> {
     state = {
         imdbdata: "",
         title: "loading...",

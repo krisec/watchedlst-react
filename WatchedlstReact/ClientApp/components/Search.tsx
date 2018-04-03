@@ -2,7 +2,7 @@
 import { RouteComponentProps } from 'react-router';
 import { ReactNode } from 'react';
 import { Link, Route } from 'react-router-dom';
-import { Entity } from './Entity';
+import { MovieEntity } from './MovieEntity';
 
 
 const card: any = {
@@ -57,7 +57,7 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 <h2> {value.title} ({value.year})</h2>
                     <h3> Type: {value.type} </h3>
                 </Link>
-                <Route path='/entity/:id' component={Entity} />
+                <Route path='/entity/:id' component={MovieEntity} />
             </div>
         })
 
