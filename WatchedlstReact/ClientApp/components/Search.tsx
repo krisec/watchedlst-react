@@ -22,8 +22,8 @@ export class Search extends React.Component<RouteComponentProps<any>> {
 
     constructor(props: any) {
         super(props);
-        this.searchButtonOnClick = this.searchButtonOnClick.bind(this);
-        this.searchBarOnKeyPressed = this.searchBarOnKeyPressed.bind(this);
+        //this.searchButtonOnClick = this.searchButtonOnClick.bind(this);
+        //this.searchBarOnKeyPressed = this.searchBarOnKeyPressed.bind(this);
     }
 
     searchMovie(query:string) {
@@ -37,12 +37,12 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         });
     }
 
-    searchButtonOnClick() {
-        this.searchMovie(this.state.searchValue);
+    searchButtonOnClick(e: any, object: Search) {
+        object.searchMovie(object.state.searchValue);
     }
-    searchBarOnKeyPressed(e: any) {
+    searchBarOnKeyPressed(e: any, object: Search) {
         if (e.keyCode == 13) {
-            this.searchMovie(this.state.searchValue);
+            object.searchMovie(object.state.searchValue);
         }
     }
 
@@ -62,7 +62,7 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         })
 
         return <div>
-            <input type='text' onKeyUp={this.searchBarOnKeyPressed} onChange={e => this.setState({ searchValue: e.currentTarget.value })} /> <button onClick={this.searchButtonOnClick}>Search</button>
+            <input type='text' onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} /> <button onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             {elements}
 
         </div>;
