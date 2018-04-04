@@ -26,7 +26,21 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         //this.searchBarOnKeyPressed = this.searchBarOnKeyPressed.bind(this);
     }
 
-    searchMovie(query:string) {
+    componentWillMount() {
+        let query = this.props.location.search;
+        try {
+
+            query = query.split('=')[1];
+        } catch (err) {
+            query = '';
+        }
+        console.log(query);
+        (query != null && query != '') && this.searchMovie(query);
+    }
+
+    searchMovie(query: string) {
+        this.props.history.push({ pathname:'/search', search:'q=' + query });
+        //console.log(this.props.location.pathname);
         fetch("api/EntityData/MovieJSONBySearch/" + query).then(response => response.json()).then(data => {
             //console.log(data);
             let results = data["Search"].map((r: any, index: number) => {
@@ -49,9 +63,9 @@ export class Search extends React.Component<RouteComponentProps<any>> {
     public render() {
         const { results } = this.state;
 
-        var elements: ReactNode[] = results.map(function (value: any) {
+        var elements: ReactNode[] = results.map(function (value: any, index: any) {
 
-            return <Link className='black-link' to={"/entity/" + value.imdbToken}>
+            return <Link className='black-link' key={index} to={"/entity/" + value.imdbToken}>
                 <div className="card">
                     <img className="card-image" src={value.poster} />
                     <p className="card-header"> {value.title} ({value.year})</p>
