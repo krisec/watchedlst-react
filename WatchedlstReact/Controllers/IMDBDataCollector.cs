@@ -13,7 +13,7 @@ namespace WatchedlstReact.Controllers
 {
     public class IMDBDataCollector
     {
-        static string apikey = "2065e398";
+        static string apikey = "cd68ecbd";
         string data;
         bool recieved = false;
 
