@@ -28,8 +28,8 @@
 }
 
 .card {
-    width: 300px;
-    height: 500px;
+    width: 200px;
+    height: 425px;
     max-height: 500px;
     border-radius: 5px;
     border: solid black 1px;
@@ -59,14 +59,14 @@
 }
 
 .card-header {
-    width: 280px;
+    width: 190px;
     margin-bottom: 10px;
     font-size:22px;
     margin:0px;
 }
 
 .card-text {
-    width: 280px;
+    width: 190px;
     font-size:16px;
     margin-top:5px;
 }
