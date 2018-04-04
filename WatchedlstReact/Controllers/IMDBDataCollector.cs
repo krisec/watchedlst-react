@@ -20,9 +20,9 @@ namespace WatchedlstReact.Controllers
         public bool Recieved { get => recieved; set => recieved = value; }
         public string Data { get => data; set => data = value; }
 
-        async public void GetDataById(string id)
+        static async public Task<string> GetDataById(string id)
         {
-            this.Data = null;
+            string data = null;
             try
             {
                 string imdbAPIURL = String.Format("http://www.omdbapi.com/?i={0}&apikey={1}", id, apikey);
@@ -31,8 +31,8 @@ namespace WatchedlstReact.Controllers
                 using (HttpResponseMessage res = await client.GetAsync(imdbAPIURL))
                 using (HttpContent content = res.Content)
                 {
-                    this.Data = await content.ReadAsStringAsync();
-                    if (this.Data != null)
+                    data = await content.ReadAsStringAsync();
+                    if (data != null)
                     {
                         //Console.WriteLine(this.Data);
                     }
@@ -42,12 +42,12 @@ namespace WatchedlstReact.Controllers
             {
                 //Console.Error.WriteLine(err.Message);
             }
-            Recieved = true;
+            return data;
         }
 
-        async public void GetDataBySearch(string query)
+        static async public Task<string> GetDataBySearch(string query)
         {
-            this.Data = null;
+            string data = null;
             try
             {
                 string imdbAPIURL = String.Format("http://www.omdbapi.com/?s={0}&apikey={1}", query, apikey);
@@ -56,8 +56,8 @@ namespace WatchedlstReact.Controllers
                 using (HttpResponseMessage res = await client.GetAsync(imdbAPIURL))
                 using (HttpContent content = res.Content)
                 {
-                    this.Data = await content.ReadAsStringAsync();
-                    if (this.Data != null)
+                    data = await content.ReadAsStringAsync();
+                    if (data != null)
                     {
                         //Console.WriteLine(this.Data);
                     }
@@ -67,7 +67,7 @@ namespace WatchedlstReact.Controllers
             {
                 //Console.Error.WriteLine(err.Message);
             }
-            Recieved = true;
+            return data;
         }
     }
 }

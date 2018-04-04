@@ -17,32 +17,17 @@ namespace WatchedlstReact.Controllers
         }
 
         [HttpGet("[action]/{id}")]
-        public string MovieJSONById(string id)
+        public async Task<string> MovieJSONById(string id)
         {
-            IMDBDataCollector col = new IMDBDataCollector();
-            col.GetDataById(id);
-
-            while (!col.Recieved)
-            {
-
-            }
-
-            Console.WriteLine(id);
-            return col.Data;
+            string s = await IMDBDataCollector.GetDataById(id);
+            return s;
         }
 
         [HttpGet("[action]/{query}")]
-        public string MovieJSONBySearch(string query)
+        public async Task<string> MovieJSONBySearch(string query)
         {
-            IMDBDataCollector col = new IMDBDataCollector();
-            col.GetDataBySearch(query);
-
-            while (!col.Recieved)
-            {
-
-            }
-
-            return col.Data;
+            string s = await IMDBDataCollector.GetDataBySearch(query);
+            return s;
         }
 
         // GET: Entity/Details/5
