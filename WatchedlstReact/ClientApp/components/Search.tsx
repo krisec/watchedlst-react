@@ -51,19 +51,24 @@ export class Search extends React.Component<RouteComponentProps<any>> {
 
         var elements: ReactNode[] = results.map(function (value: any) {
 
-            return <div className={card}>
-                <Link to={"/entity/" + value.imdbToken}>
-                <img src={value.poster} />
-                <h2> {value.title} ({value.year})</h2>
-                    <h3> Type: {value.type} </h3>
-                </Link>
-                <Route path='/entity/:id' component={MovieEntity} />
-            </div>
+            return <Link className='black-link' to={"/entity/" + value.imdbToken}>
+                <div className="card">
+                    <img className="card-image" src={value.poster} />
+                    <p className="card-header"> {value.title} ({value.year})</p>
+                    <p className="card-text"> Type: {value.type} </p>
+                    <Route path='/entity/:id' component={MovieEntity} />
+                </div>
+            </Link>
         })
 
         return <div>
-            <input type='text' onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} /> <button onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
+            <div className="search-bar">
+                <input type='text' className="search-bar-input" onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} />
+                <button onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
+            </div>
+            <div>
             {elements}
+            </div>
 
         </div>;
     }
