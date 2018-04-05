@@ -1,5 +1,6 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Link } from "react-router-dom";
 
 
 interface EntityMatch {
@@ -37,6 +38,9 @@ export class MovieEntity extends React.Component<RouteComponentProps<any>> {
     public render() {
         const { title, year, desc, imageSrc } = this.state;
         return <div>
+            <div>
+                <button onClick={this.props.history.goBack}> &lt; Back</button>
+            </div>
             <h1><
                 img src={imageSrc} />
                 {title} ({year})

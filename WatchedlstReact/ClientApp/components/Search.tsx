@@ -34,15 +34,21 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         } catch (err) {
             query = '';
         }
-        console.log(query);
+        //console.log(query);
         (query != null && query != '') && this.searchMovie(query);
     }
 
     searchMovie(query: string) {
-        this.props.history.push({ pathname:'/search', search:'q=' + query });
+        if (query === '')
+            return;
+        this.props.history.push({ pathname: '/search', search: 'q=' + query });
         //console.log(this.props.location.pathname);
         fetch("api/EntityData/MovieJSONBySearch/" + query).then(response => response.json()).then(data => {
             //console.log(data);
+            if (data.Response == "False") {
+                alert("Sorry, we could not find any results of " + query);
+                return;
+            }
             let results = data["Search"].map((r: any, index: number) => {
                 return { title: r["Title"], poster: r["Poster"], imdbToken: r["imdbID"], year: r["Year"], type: r["Type"] }
             })
@@ -76,9 +82,9 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         })
 
         return <div>
-            <div className="search-bar">
+            <div className="header-bar">
                 <input type='text' className="search-bar-input" onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} />
-                <button onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
+                <button className="search-bar-button" onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             </div>
             <div>
             {elements}
