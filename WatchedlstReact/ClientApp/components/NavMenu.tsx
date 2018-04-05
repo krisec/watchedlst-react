@@ -26,6 +26,43 @@ export class NavMenu extends React.Component<{}, {}> {
     }
 
     public render() {
+        let navbar = <ul></ul>;
+        if (this.state.loggedIn) {
+            navbar = <ul className='nav navbar-nav'>
+                <li>
+                    <a onClick={this.signout}><span className="glyphicon glyphicon-log-out" />Sign out</a>
+                </li>
+                <li>
+                    <NavLink to={'/'} exact activeClassName='active'>
+                        <span className='glyphicon glyphicon-home'></span> Home
+                            </NavLink>
+                </li>
+                <li>
+                    <NavLink to={'/search'} activeClassName='active'>
+                        <span className='glyphicon glyphicon-search'></span> Search Movies/series
+                            </NavLink>
+                </li>
+            </ul>
+        } else {
+            <ul className='nav navbar-nav'>
+                <li>
+                    <a onClick={this.signInWithGoogle}><span className="glyphicon glyphicon-log-in" />Sign in with Google</a>
+                </li>
+                <li>
+                    <NavLink to={'/'} exact activeClassName='active'>
+                        <span className='glyphicon glyphicon-home'></span> Home
+                            </NavLink>
+                </li>
+                <li>
+                    <NavLink to={'/search'} activeClassName='active'>
+                        <span className='glyphicon glyphicon-search'></span> Search Movies/series
+                    </NavLink>
+                </li>
+            </ul>
+        }
+
+
+
         return <div className='main-nav'>
                 <div className='navbar navbar-inverse'>
                 <div className='navbar-header'>
@@ -39,52 +76,7 @@ export class NavMenu extends React.Component<{}, {}> {
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
-                    {(this.state.loggedIn) ? <ul className='nav navbar-nav'>
-                        <li>
-                            <a onClick={this.signout}><span className="glyphicon glyphicon-log-out" />Sign out</a>
-                        </li>
-                        <li>
-                            <NavLink to={'/'} exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/search'} activeClassName='active'>
-                                <span className='glyphicon glyphicon-search'></span> Search Movies/series
-                            </NavLink>
-                        </li>
-                    </ul>
-                        :
-                        <ul className='nav navbar-nav'>
-                            <li>
-                                <a onClick={this.signInWithGoogle}><span className="glyphicon glyphicon-log-in" />Sign in with Google</a>
-                            </li>
-                            <li>
-                                <NavLink to={'/'} exact activeClassName='active'>
-                                    <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                            </li>
-                            <li>
-                                <NavLink to={'/search'} activeClassName='active'>
-                                    <span className='glyphicon glyphicon-search'></span> Search Movies/series
-                            </NavLink>
-                            </li>
-                        </ul>}
-                    <ul className='nav navbar-nav'>
-                        <li>
-                            <a onClick={this.signout}><span className="glyphicon glyphicon-off"/>Text</a>
-                        </li>
-                        <li>
-                            <NavLink to={ '/' } exact activeClassName='active'>
-                                <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/search'} activeClassName='active'>
-                                <span className='glyphicon glyphicon-search'></span> Search Movies/series
-                            </NavLink>
-                        </li>
-                    </ul>
+                    {navbar}
                 </div>
             </div>
         </div>;
