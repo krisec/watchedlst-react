@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
     state = {
-        loggedIn: false;
+        loggedIn: false
     }
 
     signout() {
