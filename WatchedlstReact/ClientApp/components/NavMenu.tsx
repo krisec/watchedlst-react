@@ -27,6 +27,7 @@ export class NavMenu extends React.Component<{}, {}> {
 
     public render() {
         var navbar;
+        this.checkUser();
         if (this.state.loggedIn) {
             navbar = <ul className='nav navbar-nav'>
                 <li>
