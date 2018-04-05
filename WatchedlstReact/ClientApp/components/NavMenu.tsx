@@ -12,7 +12,7 @@ export class NavMenu extends React.Component<{}, {}> {
     }
 
     signInWithGoogle() {
-        window.location.assign("watchedlst.azurewebsite.net/.auth/login/google/callback")
+        window.location.href = "https://watchedlst.azurewebsites.net/.auth/login/google/callback";
     }
 
     checkUser() {
@@ -26,7 +26,7 @@ export class NavMenu extends React.Component<{}, {}> {
     }
 
     public render() {
-        var navbar = <ul></ul>;
+        var navbar;
         if (this.state.loggedIn) {
             navbar = <ul className='nav navbar-nav'>
                 <li>
@@ -35,28 +35,23 @@ export class NavMenu extends React.Component<{}, {}> {
                 <li>
                     <NavLink to={'/'} exact activeClassName='active'>
                         <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
+                    </NavLink>
                 </li>
                 <li>
                     <NavLink to={'/search'} activeClassName='active'>
                         <span className='glyphicon glyphicon-search'></span> Search Movies/series
-                            </NavLink>
+                    </NavLink>
                 </li>
             </ul>
         } else {
-            <ul className='nav navbar-nav'>
+            navbar = <ul className='nav navbar-nav'>
                 <li>
                     <a onClick={this.signInWithGoogle}><span className="glyphicon glyphicon-log-in" />Sign in with Google</a>
                 </li>
                 <li>
                     <NavLink to={'/'} exact activeClassName='active'>
                         <span className='glyphicon glyphicon-home'></span> Home
-                            </NavLink>
-                </li>
-                <li>
-                    <NavLink to={'/search'} activeClassName='active'>
-                        <span className='glyphicon glyphicon-search'></span> Search Movies/series
-                    </NavLink>
+                   </NavLink>
                 </li>
             </ul>
         }
