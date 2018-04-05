@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 export class NavMenu extends React.Component<{}, {}> {
+    signout(){
+        window.location.assign("https://appengine.google.com/_ah/logout?continue=https://watchedlst.azurewebsites.net/");
+    }
+
     public render() {
         return <div className='main-nav'>
                 <div className='navbar navbar-inverse'>
@@ -28,6 +32,7 @@ export class NavMenu extends React.Component<{}, {}> {
                             </NavLink>
                         </li>
                     </ul>
+                    <button onClick={this.signout}>Sign Out</button>
                 </div>
             </div>
         </div>;

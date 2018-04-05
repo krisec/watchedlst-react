@@ -14,18 +14,13 @@ namespace WatchedlstReact.Controllers
     public class IMDBDataCollector
     {
         static string apikey = "cd68ecbd";
-        string data;
-        bool recieved = false;
-
-        public bool Recieved { get => recieved; set => recieved = value; }
-        public string Data { get => data; set => data = value; }
 
         static async public Task<string> GetDataById(string id)
         {
             string data = null;
             try
             {
-                string imdbAPIURL = String.Format("http://www.omdbapi.com/?i={0}&apikey={1}", id, apikey);
+                string imdbAPIURL = String.Format("http://www.omdbapi.com/?i={0}&plot=full&apikey={1}", id, apikey);
                 HttpClient client = new HttpClient();
 
                 using (HttpResponseMessage res = await client.GetAsync(imdbAPIURL))
