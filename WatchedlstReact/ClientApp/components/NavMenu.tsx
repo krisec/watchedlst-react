@@ -7,22 +7,24 @@ export class NavMenu extends React.Component<{}, {}> {
     }
 
     signout() {
-        fetch('/.auth/logout/');
+        //fetch('/.auth/logout/');
         this.setState({ loggedIn: false });
     }
 
     signInWithGoogle() {
-        window.location.href = "https://watchedlst.azurewebsites.net/.auth/login/google/callback";
+        //TODO: Research how to properly implement google login and validating the OAuth token
+        //window.location.href = "https://watchedlst.azurewebsites.net/.auth/login/google/callback";
+        this.setState({loggedIn:true})
     }
 
     checkUser() {
-        fetch('/.auth/me').then(response => response.json()).then(data => {
-            if (data['user_id'] === undefined) {
-                this.setState({ loggedIn: false });
-            } else {
-                this.setState({ loggedIn: true });
-            }
-        });
+        //fetch('/.auth/me').then(response => console.log(response)).then(data => {
+        //    //if (data['user_id'] === undefined) {
+        //    //    this.setState({ loggedIn: false });
+        //    //} else {
+        //    //    this.setState({ loggedIn: true });
+        //    //}
+        //});
     }
 
     public render() {
