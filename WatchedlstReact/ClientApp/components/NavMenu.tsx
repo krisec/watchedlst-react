@@ -6,15 +6,15 @@ export class NavMenu extends React.Component<{}, {}> {
         loggedIn: false
     }
 
-    signout() {
+    signout(e:any, object: this) {
         //fetch('/.auth/logout/');
-        this.setState({ loggedIn: false });
+        object.setState({ loggedIn: false });
     }
 
-    signInWithGoogle() {
+    signInWithGoogle(e:any, object: this) {
         //TODO: Research how to properly implement google login and validating the OAuth token
         //window.location.href = "https://watchedlst.azurewebsites.net/.auth/login/google/callback";
-        this.setState({loggedIn:true})
+        object.setState({loggedIn:true})
     }
 
     checkUser() {
@@ -33,7 +33,7 @@ export class NavMenu extends React.Component<{}, {}> {
         if (this.state.loggedIn) {
             navbar = <ul className='nav navbar-nav'>
                 <li>
-                    <a onClick={this.signout}><span className="glyphicon glyphicon-log-out" />Sign out</a>
+                    <a onClick={e => { this.signout(e, this) }}><span className="glyphicon glyphicon-log-out" />Sign out</a>
                 </li>
                 <li>
                     <NavLink to={'/'} exact activeClassName='active'>
@@ -49,7 +49,7 @@ export class NavMenu extends React.Component<{}, {}> {
         } else {
             navbar = <ul className='nav navbar-nav'>
                 <li>
-                    <a onClick={this.signInWithGoogle}><span className="glyphicon glyphicon-log-in" />Sign in with Google</a>
+                    <a onClick={e=>this.signInWithGoogle(e, this)}><span className="glyphicon glyphicon-log-in" />Sign in with Google</a>
                 </li>
                 <li>
                     <NavLink to={'/'} exact activeClassName='active'>

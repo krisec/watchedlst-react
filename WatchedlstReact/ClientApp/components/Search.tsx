@@ -1,8 +1,8 @@
 ﻿import * as React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { ReactNode } from 'react';
 import { Link, Route } from 'react-router-dom';
 import { MovieEntity } from './MovieEntity';
+import { Dialog } from "./elements/dialog";
 
 
 const card: any = {
@@ -15,10 +15,12 @@ export class Search extends React.Component<RouteComponentProps<any>> {
     state = {
         results: [],
         searchValue: "",
-        loading: true
+        dialogActive: true
     };
 
-
+    openDialog() {
+         
+    }
 
     constructor(props: any) {
         super(props);
@@ -66,10 +68,14 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         }
     }
 
+    closeDialog(object:this) {
+        object.setState({ dialogActive: false });
+    }
+
     public render() {
         const { results } = this.state;
 
-        var elements: ReactNode[] = results.map(function (value: any, index: any) {
+        var elements: React.ReactNode[] = results.map(function (value: any, index: any) {
 
             return <Link className='black-link' key={index} to={"/entity/" + value.imdbToken}>
                 <div className="card">
@@ -87,9 +93,13 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 <button className="search-bar-button" onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             </div>
             <div>
-            {elements}
+                <button onClick={e => this.setState({ dialogActive: true })}>Open Dialog</button>
+                {elements}
             </div>
-
+            <Dialog isActive={this.state.dialogActive} onClick={this.closeDialog} parent={this}>
+                <p>Do you like dialogs?</p>
+                <input />
+            </Dialog>
         </div>;
     }
 }

@@ -19,18 +19,17 @@
     z-index: 1;
 }
 .header-bar {
-    width: 100%;
+    width: calc(100% + 35px);
     height: 50px;
     background: #222;
     color:white;
-    margin:0px;
     margin-left:-20px;
-    margin-right:-100px;
 }
 .search-bar-input {
     width: 75%;
     margin:10px;
     margin-bottom:0px;
+    color:black;
 }
 .search-bar-button {
     margin-top: 10px;
@@ -88,6 +87,42 @@
     font-size:16px;
     margin-top:5px;
 }
+
+.dialog{
+    /*Make the dialog overlay the entire window*/
+    position:fixed;
+    top:0%;
+    left:0%;
+    background: Rgba(0, 0, 0, 0.7);
+
+    width:100%;
+    height:100%;
+
+    /*Make sure the dialog is always on top*/
+    z-index:100000;
+}
+.dialog-inactive{
+    display:none;
+}
+
+.dialog-content {
+    position: fixed;
+    margin: 10px calc(25% + 25px);
+    padding: 10px;
+    padding-bottom: 20px;
+    background: white;
+    z-index: 100001;
+}
+
+.dialog-position {
+    position:fixed;
+    width:25%;
+    height:50%;
+    top:25%;
+    left: calc(25%);
+}
+
+
 
 @media (max-width: 767px) {
     /* On small screens, the nav menu spans the full width of the screen. Leave a space for it. */
