@@ -15,7 +15,8 @@ export class Search extends React.Component<RouteComponentProps<any>> {
     state = {
         results: [],
         searchValue: "",
-        dialogActive: false
+        dialogActive: false,
+        isLoading: false
     };
 
     openDialog() {
@@ -44,6 +45,7 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         if (query === '')
             return;
         this.props.history.push({ pathname: '/search', search: 'q=' + query });
+        this.setState({ isLoading: true });
         //console.log(this.props.location.pathname);
         fetch("api/EntityData/MovieJSONBySearch/" + query).then(response => response.json()).then(data => {
             //console.log(data);
@@ -54,7 +56,11 @@ export class Search extends React.Component<RouteComponentProps<any>> {
             let results = data["Search"].map((r: any, index: number) => {
                 return { title: r["Title"], poster: r["Poster"], imdbToken: r["imdbID"], year: r["Year"], type: r["Type"] }
             })
-            this.setState({ results: results })
+
+            console.log(query + " " + this.props.location.search.split("=")[1])
+            if (query !== this.props.location.search.split("=")[1])
+                return;
+            this.setState({ results: results, isLoading: false })
             //this.setState({ data: data, loading: false, title: data["Title"], year: data["Year"], desc: data["Plot"], imageSrc: data["Poster"] });
         });
     }
@@ -75,7 +81,8 @@ export class Search extends React.Component<RouteComponentProps<any>> {
     public render() {
         const { results } = this.state;
 
-        var elements: React.ReactNode[] = results.map(function (value: any, index: any) {
+
+        var cards: React.ReactNode[] = results.map(function (value: any, index: any) {
 
             return <Link className='black-link' key={index} to={"/entity/" + value.imdbToken}>
                 <div className="card">
@@ -85,14 +92,20 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                     <Route path='/entity/:id' component={MovieEntity} />
                 </div>
             </Link>
-        })
+        });
+
+        let elements = <div className="contentContainer"> {cards}</div>;
+
+        if (this.state.isLoading) {
+            elements = <img className="loading-icon" itemType="image/svg" src="../res/tail-spin.svg" alt="Loading icon" />;
+        }
 
         return <div>
             <div className="header-bar">
                 <input type='text' className="search-bar-input" onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} />
                 <button className="search-bar-button" onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             </div>
-            <div className="contentContainer">
+            <div>
                 {/*<button onClick={e => this.setState({ dialogActive: true })}>Open Dialog</button>*/}
                 {elements}
             </div>

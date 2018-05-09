@@ -86,18 +86,26 @@
     margin-top:5px;
 }
 
-.dialog{
+.loading-icon {
+    margin-left: 40%;
+    margin-top: 20%;
+    width:10%;
+    min-height:100px;
+    min-width:100px;
+    height:10%;
+    fill:#393;
+}
+
+.dialog {
     /*Make the dialog overlay the entire window*/
-    position:fixed;
-    top:0%;
-    left:0%;
+    position: fixed;
+    top: 0%;
+    left: 0%;
     background: Rgba(0, 0, 0, 0.7);
-
-    width:100%;
-    height:100%;
-
+    width: 100%;
+    height: 100%;
     /*Make sure the dialog is always on top*/
-    z-index:100000;
+    z-index: 100000;
 }
 .dialog-inactive{
     display:none;
