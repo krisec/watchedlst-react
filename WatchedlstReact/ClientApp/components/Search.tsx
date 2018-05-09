@@ -16,7 +16,10 @@ export class Search extends React.Component<RouteComponentProps<any>> {
         results: [],
         searchValue: "",
         dialogActive: false,
-        isLoading: false
+        isLoading: false,
+        fetchingPages: false,
+        currentLoadedPage: 0,
+        totalPages: 0
     };
 
     openDialog() {
@@ -57,12 +60,45 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 return { title: r["Title"], poster: r["Poster"], imdbToken: r["imdbID"], year: r["Year"], type: r["Type"] }
             })
 
-            console.log(query + " " + this.props.location.search.split("=")[1])
+            //console.log(query + " " + this.props.location.search.split("=")[1])
             if (query !== this.props.location.search.split("=")[1])
                 return;
-            this.setState({ results: results, isLoading: false })
+            
+            this.setState({ results: results, isLoading: false, currentLoadedPage: 1, totalPages: Math.ceil(data.totalResults/10)})
+            this.fetchNextPage();
             //this.setState({ data: data, loading: false, title: data["Title"], year: data["Year"], desc: data["Plot"], imageSrc: data["Poster"] });
         });
+    }
+
+    fetchNextPage(){
+        //console.log(this.state.totalPages)
+        if(this.state.fetchingPages || this.state.currentLoadedPage == this.state.totalPages)
+            return;
+        let query = this.props.location.search.split("=")[1];
+        this.setState({fetchingPages:true});
+        //console.log(query + " " + this.state.currentLoadedPage);
+        //console.log("api/EntityData/MovieJSONBySearchAndPage/" + query + "/" + (this.state.currentLoadedPage + 1))
+        fetch("api/EntityData/MovieJSONBySearchAndPage/" + query + "&" + (this.state.currentLoadedPage + 1)).then(response => response.json()).then(data => {
+            //console.log(data);
+            if (data.Response == "False") {
+                alert("Sorry, we could not find any results of " + query);
+                return;
+            }
+            let results = data["Search"].map((r: any, index: number) => {
+                return { title: r["Title"], poster: r["Poster"], imdbToken: r["imdbID"], year: r["Year"], type: r["Type"] }
+            })
+
+            //console.log(query + " " + this.props.location.search.split("=")[1])
+            if (query !== this.props.location.search.split("=")[1])
+                return; // Just making sure that we are fetching the right results!
+            
+            this.setState({ results: [...this.state.results, ...results], currentLoadedPage: this.state.currentLoadedPage + 1, fetchingPages: false })
+            //this.setState({ data: data, loading: false, title: data["Title"], year: data["Year"], desc: data["Plot"], imageSrc: data["Poster"] });
+        });
+    }
+
+    loadMore(e:any, obj: Search){
+        obj.fetchNextPage();
     }
 
     searchButtonOnClick(e: any, object: Search) {
@@ -93,8 +129,15 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 </div>
             </Link>
         });
+        if(this.state.totalPages > this.state.currentLoadedPage && !this.state.fetchingPages){
+            cards.push(<div className="card" onClick={e => this.loadMore(e, this)}>
+                <h3> Load more... </h3>
+            </div>)
+        }
 
         let elements = <div className="contentContainer"> {cards}</div>;
+
+        this.state.fetchingPages && cards.push(<img className="card" src="../res/three-dots.svg"/>)
 
         if (this.state.isLoading) {
             elements = <img className="loading-icon" itemType="image/svg" src="../res/tail-spin.svg" alt="Loading icon" />;
@@ -105,7 +148,7 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 <input type='text' className="search-bar-input" onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} />
                 <button className="search-bar-button" onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             </div>
-            <div>
+            <div className="content-wrapper">
                 {/*<button onClick={e => this.setState({ dialogActive: true })}>Open Dialog</button>*/}
                 {elements}
             </div>

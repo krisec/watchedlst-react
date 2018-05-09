@@ -31,6 +31,14 @@ namespace WatchedlstReact.Controllers
             return s;
         }
 
+        
+        [HttpGet("[action]/{query}&{page}")]
+        public async Task<string> MovieJSONBySearchAndPage(string query, int page)
+        {
+            string s = await IMDBDataCollector.GetDataBySearch(query, page);
+            return s;
+        }
+
         // GET: Entity/Details/5
         public ActionResult Details(int id)
         {
