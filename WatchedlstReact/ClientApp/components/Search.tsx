@@ -15,7 +15,7 @@ export class Search extends React.Component<RouteComponentProps<any>> {
     state = {
         results: [],
         searchValue: "",
-        dialogActive: true
+        dialogActive: false
     };
 
     openDialog() {
@@ -92,13 +92,15 @@ export class Search extends React.Component<RouteComponentProps<any>> {
                 <input type='text' className="search-bar-input" onKeyUp={e => this.searchBarOnKeyPressed(e, this)} onChange={e => this.setState({ searchValue: e.currentTarget.value })} />
                 <button className="search-bar-button" onClick={e => this.searchButtonOnClick(e, this)}>Search</button>
             </div>
-            <div>
-                <button onClick={e => this.setState({ dialogActive: true })}>Open Dialog</button>
+            <div className="contentContainer">
+                {/*<button onClick={e => this.setState({ dialogActive: true })}>Open Dialog</button>*/}
                 {elements}
             </div>
             <Dialog isActive={this.state.dialogActive} onClick={this.closeDialog} parent={this}>
                 <p>Do you like dialogs?</p>
-                <input />
+                <input /><br />
+                <button>Cancel</button>
+                <button> Confirm</button>
             </Dialog>
         </div>;
     }
