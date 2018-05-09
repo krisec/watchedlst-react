@@ -1,7 +1,7 @@
 # watchedlst-react
 Watchedlst is a website for recommending movies and tv-series to your friends in a listed format.
 
-The master branch can be viewed at https://watchedlst.azurewebsites.net
+The master branch can be viewed at https://watchedlst.azurewebsites.net (Note: It might take some time to load the site due to Azure cold-start)
 
 
 Ever recommended a movie to your friends, only to have them forget about it mere minutes after?
