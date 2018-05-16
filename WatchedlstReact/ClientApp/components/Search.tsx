@@ -119,10 +119,10 @@ export class Search extends React.Component<RouteComponentProps<any>> {
 
 
         var cards: React.ReactNode[] = results.map(function (value: any, index: any) {
-
+            
             return <Link className='black-link' key={index} to={"/entity/" + value.imdbToken}>
                 <div className="card">
-                    <img className="card-image" src={value.poster} />
+                    <img className="card-image" src={(value.poster == "N/A") ? "../res/Clapperboard_clip_art_hight.png": value.poster} />
                     <p className="card-header"> {value.title} ({value.year})</p>
                     <p className="card-text"> Type: {value.type} </p>
                     <Route path='/entity/:id' component={MovieEntity} />
